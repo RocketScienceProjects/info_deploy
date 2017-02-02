@@ -1,16 +1,13 @@
 #!/bin/ksh
 #####################################################
-# Created By: Bastin
-# Created Date: Nov 28 2014
-# Version: 1.0
 # Description: Performs the below list of activities
-# 1. Create DG 
+# 1. Create DG
 # 2. Delete DG
-# 3. Add objects to DG 
-# 4. Deploy DG 
-# 5. Clear DG 
-# 6. Create Label 
-# 7. Apply Label 
+# 3. Add objects to DG
+# 4. Deploy DG
+# 5. Clear DG
+# 6. Create Label
+# 7. Apply Label
 # 8. Delete Label
 #####################################################
 
@@ -31,82 +28,82 @@ export ACTION=$6
 cat /dev/null>$LogFileDir/$LogFileName
 
 ##### Connecting to the Source repository
-$PMSERVERDIR/pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Connected to the Repository "$SRC_REP
-	echo  
+	echo
 	echo "Connected to the Repository "$SRC_REP >>$LogFileDir/$LogFileName
 	else
 	echo "Failed to Connect to the Repository "$SRC_REP
 	echo "Failed to Connect to the Repository "$SRC_REP >>$LogFileDir/$LogFileName
 	echo "Check the log file "$LogFileDir/$LogFileName
-	echo 
+	echo
 	exit 1
 	fi
 
-##### Delete the existing deployment group 
+##### Delete the existing deployment group
 if [ "$ACTION" == DG_DELETE ]
 then
 
-$PMSERVERDIR/pmrep deletedeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep deletedeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Deleted the Deployment Group "$NAME
-	echo  
+	echo
 	echo "Deleted the Deployment Group "$NAME >>$LogFileDir/$LogFileName
 	else
 	echo "Deployment Group "$NAME " is not present / invalid credentials."
 	echo "Deployment Group "$NAME " is not present." >>$LogFileDir/$LogFileName
 	echo "Check the log file "$LogFileDir/$LogFileName
-	echo 
+	echo
 	exit 1
 	fi
 
 fi
 
-##### Clear the objects in the deployment group 
+##### Clear the objects in the deployment group
 if [ "$ACTION" == DG_CLEAR ]
 then
 
-$PMSERVERDIR/pmrep cleardeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep cleardeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Cleared the Deployment Group "$NAME
-	echo  
+	echo
 	echo "Cleared the Deployment Group "$NAME >>$LogFileDir/$LogFileName
 	else
 	echo "Deployment Group "$NAME " is not present / invalid credentials."
 	echo "Deployment Group "$NAME " is not present." >>$LogFileDir/$LogFileName
 	echo "Check the log file "$LogFileDir/$LogFileName
-	echo 
+	echo
 	exit 1
 	fi
 
 fi
 
 
-##### Create a new Depolyment Group 
+##### Create a new Depolyment Group
 if [ "$ACTION" == DG_CREATE -o "$ACTION" == DG_C_A_D ]
 then
 
-$PMSERVERDIR/pmrep createdeploymentgroup -p $NAME -t static -q DUMMY -u shared 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep createdeploymentgroup -p $NAME -t static -q DUMMY -u shared 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Created the Deployment Group "$NAME
-	echo  
+	echo
 	echo "Created the Deployment Group "$NAME >>$LogFileDir/$LogFileName
 	else
 	echo "Deployment Group "$NAME " is already available / invalid credentials."
@@ -116,15 +113,15 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 	exit 1
 	fi
 
-##### Assigning permission to different informatica groups. 
+##### Assigning permission to different informatica groups.
 echo Assigning permission for $NAME to below list of informatica groups if available.
 
 LST_CNT=`wc -l $InfaMigPath/Informatica_Groups_Lst.txt|awk '{print $1}'`
 
 if [ $LST_CNT == 0 ]
-then 
-echo Informatica Group list is empty. Not assigning permission to any group. 
-else 
+then
+echo Informatica Group list is empty. Not assigning permission to any group.
+else
 
 while read EachLine
 do
@@ -133,12 +130,12 @@ set -- $var
 GRP_NM=$1
 ACCESS=$2
 
-$PMSERVERDIR/pmrep AssignPermission -o deploymentgroup -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep AssignPermission -o deploymentgroup -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo $GRP_NM " - " $ACCESS " permission is given to the Deployment Group "$NAME
 	echo $GRP_NM " - " $ACCESS " permission is given to the Deployment Group "$NAME >>$LogFileDir/$LogFileName
 	else
@@ -154,7 +151,7 @@ fi
 
 fi
 
-##### Add Informatica Objects to the Deployment group. 
+##### Add Informatica Objects to the Deployment group.
 if [ "$ACTION" == DG_ADD -o "$ACTION" == DG_C_A_D ]
 then
 
@@ -170,12 +167,12 @@ FLDR_NM=$2
 OBJ_TYPE=$3
 OBJ_NM=$4
 
-	##### Checking the connected repository and repository name in the inventory list. 	
+	##### Checking the connected repository and repository name in the inventory list.
 	if [ "$REPO_NM" != "$SRC_REP" ]
 	then
 	echo "Connected repository "$SRC_REP" is not equal to the repository name in file "$REPO_NM
 	echo "Connected repository "$SRC_REP" is not equal to the repository name in file "$REPO_NM >>$LogFileDir/$LogFileName
-	echo 
+	echo
 	exit 1
 	fi
 
@@ -184,7 +181,7 @@ RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Added "$OBJ_NM " to the Deployment Group "$NAME
 	echo "Added "$OBJ_NM " to the Deployment Group "$NAME >>$LogFileDir/$LogFileName
 	else
@@ -197,27 +194,27 @@ echo "RETURN_CODE: "$RETURN_CODE >>$LogFileDir/$LogFileName
 
 done < $InfaMigPath/Mig_Inventory_list.csv
 
-echo 
+echo
 echo "All Objects are added to the deployment Group "$NAME.
 date
-echo 
+echo
 
 fi
 
-##### Deploy the deployment group to the target repository. 
+##### Deploy the deployment group to the target repository.
 if [ "$ACTION" == DG_DEPLOY -o "$ACTION" == DG_C_A_D ]
 then
 
 echo "Starting Deployment of "$NAME" to target Repository "$TGT_REP.
 date
-$PMSERVERDIR/pmrep deploydeploymentgroup -p $NAME -c $InfaMigPath/DeployOptions.xml -r $TGT_REP -n $USERNAME -s $USERSECURITYDOMAIN -x $PASSWORD -l $LogFileDir/$NAME.log 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep deploydeploymentgroup -p $NAME -c $InfaMigPath/DeployOptions.xml -r $TGT_REP -n $USERNAME -s $USERSECURITYDOMAIN -x $PASSWORD -l $LogFileDir/$NAME.log 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Deployment of "$NAME" to target Repository "$TGT_REP" was successful."
-	echo 
+	echo
 	echo "Deployment of "$NAME" to target Repository "$TGT_REP" was successful." >>$LogFileDir/$LogFileName
 	date
 	else
@@ -231,18 +228,18 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 fi
 
-##### Create a Label 
+##### Create a Label
 if [ "$ACTION" == LB_CREATE -o "$ACTION" == LB_C_A ]
 then
 
-$PMSERVERDIR/pmrep createlabel -a $NAME 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep createlabel -a $NAME 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Created the Label "$NAME
-	echo  
+	echo
 	echo "Created the Label "$NAME >>$LogFileDir/$LogFileName
 	else
 	echo "Label "$NAME " is already available / invalid credentials."
@@ -252,14 +249,14 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 	exit 1
 	fi
 
-##### Assigning permission to different informatica groups. 
+##### Assigning permission to different informatica groups.
 echo Assigning permission for $NAME to below list of informatica groups.
 
 LST_CNT=`wc -l $InfaMigPath/Informatica_Groups_Lst.txt|awk '{print $1}'`
 
 if [ $LST_CNT == 0 ]
-then 
-echo Informatica Group list is empty. Not assigning permission to any group. 
+then
+echo Informatica Group list is empty. Not assigning permission to any group.
 else
 
 while read EachLine
@@ -269,12 +266,12 @@ set -- $var
 GRP_NM=$1
 ACCESS=$2
 
-$PMSERVERDIR/pmrep AssignPermission -o label -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep AssignPermission -o label -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo $GRP_NM " - " $ACCESS " permission is given to the Label "$NAME
 	echo $GRP_NM " - " $ACCESS " permission is given to the Label  "$NAME >>$LogFileDir/$LogFileName
 	else
@@ -291,18 +288,18 @@ fi
 
 fi
 
-##### Delete a Label 
+##### Delete a Label
 if [ "$ACTION" == LB_DELETE ]
 then
 
-$PMSERVERDIR/pmrep deletelabel -a $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName	
+$PMSERVERDIR/pmrep deletelabel -a $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Deleted the Label "$NAME
-	echo  
+	echo
 	echo "Deleted the Label "$NAME >>$LogFileDir/$LogFileName
 	else
 	echo "Label "$NAME " is not available / invalid credentials."
@@ -314,7 +311,7 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
 fi
 
-##### Apply Label to Informatica Objects. 
+##### Apply Label to Informatica Objects.
 if [ "$ACTION" == LB_ADD -o "$ACTION" == LB_C_A ]
 then
 
@@ -330,12 +327,12 @@ FLDR_NM=$2
 OBJ_TYPE=$3
 OBJ_NM=$4
 
-	##### Checking the connected repository and repository name in the inventory list. 	
+	##### Checking the connected repository and repository name in the inventory list.
 	if [ "$REPO_NM" != "$SRC_REP" ]
 	then
 	echo "Connected repository "$SRC_REP" is not equal to the repository name in file "$REPO_NM
 	echo "Connected repository "$SRC_REP" is not equal to the repository name in file "$REPO_NM >>$LogFileDir/$LogFileName
-	echo 
+	echo
 	exit 1
 	fi
 
@@ -345,7 +342,7 @@ echo "RETURN_CODE: "$RETURN_CODE >>$LogFileDir/$LogFileName
 
 
 	if [ $RETURN_CODE == 0 ]
-	then 
+	then
 	echo "Applied label "$NAME " to the Infa Object "$OBJ_NM
 	echo "Applied label "$NAME " to the Infa Object "$OBJ_NM >>$LogFileDir/$LogFileName
 	else
@@ -358,12 +355,11 @@ echo "RETURN_CODE: "$RETURN_CODE >>$LogFileDir/$LogFileName
 
 done < $InfaMigPath/Mig_Inventory_list.csv
 
-echo 
+echo
 echo "Label is applied to all available Informatica Objects"
 date
-echo 
+echo
 
 fi
 
 exit 0
-
