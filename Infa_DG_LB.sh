@@ -23,7 +23,7 @@ cat /dev/null>$LogFileDir/$LogFileName
 
 ##### Connecting to the Source repository
 ##### $DOMAIN defined in the env file
-$PMSERVERDIR/pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -44,7 +44,7 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 if [ "$ACTION" == DG_DELETE ]
 then
 
-$PMSERVERDIR/pmrep deletedeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep deletedeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -67,7 +67,7 @@ fi
 if [ "$ACTION" == DG_CLEAR ]
 then
 
-$PMSERVERDIR/pmrep cleardeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep cleardeploymentgroup -p $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -91,7 +91,7 @@ fi
 if [ "$ACTION" == DG_CREATE -o "$ACTION" == DG_C_A_D ]
 then
 
-$PMSERVERDIR/pmrep createdeploymentgroup -p $NAME -t static -q DUMMY -u shared 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep createdeploymentgroup -p $NAME -t static -q DUMMY -u shared 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -125,7 +125,7 @@ set -- $var
 GRP_NM=$1
 ACCESS=$2
 
-$PMSERVERDIR/pmrep AssignPermission -o deploymentgroup -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep AssignPermission -o deploymentgroup -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -171,7 +171,7 @@ OBJ_NM=$4
 	exit 1
 	fi
 
-$PMSERVERDIR/pmrep addtodeploymentgroup -p $NAME -n $OBJ_NM -o $OBJ_TYPE -f $FLDR_NM -d all 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep addtodeploymentgroup -p $NAME -n $OBJ_NM -o $OBJ_TYPE -f $FLDR_NM -d all 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE >>$LogFileDir/$LogFileName
 
@@ -202,7 +202,7 @@ then
 
 echo "Starting Deployment of "$NAME" to target Repository "$TGT_REP.
 date
-$PMSERVERDIR/pmrep deploydeploymentgroup -p $NAME -c $InfaMigPath/DeployOptions.xml -r $TGT_REP -n $USERNAME -s $USERSECURITYDOMAIN -x $PASSWORD -l $LogFileDir/$NAME.log 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep deploydeploymentgroup -p $NAME -c $InfaMigPath/DeployOptions.xml -r $TGT_REP -n $USERNAME -s $USERSECURITYDOMAIN -x $PASSWORD -l $LogFileDir/$NAME.log 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -227,7 +227,7 @@ fi
 if [ "$ACTION" == LB_CREATE -o "$ACTION" == LB_C_A ]
 then
 
-$PMSERVERDIR/pmrep createlabel -a $NAME 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep createlabel -a $NAME 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -261,7 +261,7 @@ set -- $var
 GRP_NM=$1
 ACCESS=$2
 
-$PMSERVERDIR/pmrep AssignPermission -o label -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep AssignPermission -o label -n $NAME -g $GRP_NM -s $USERSECURITYDOMAIN -p $ACCESS 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -287,7 +287,7 @@ fi
 if [ "$ACTION" == LB_DELETE ]
 then
 
-$PMSERVERDIR/pmrep deletelabel -a $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep deletelabel -a $NAME -f 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 
@@ -331,7 +331,7 @@ OBJ_NM=$4
 	exit 1
 	fi
 
-$PMSERVERDIR/pmrep applylabel -a $NAME -n $OBJ_NM -o $OBJ_TYPE -f $FLDR_NM -p children 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep applylabel -a $NAME -n $OBJ_NM -o $OBJ_TYPE -f $FLDR_NM -p children 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE >>$LogFileDir/$LogFileName
 
