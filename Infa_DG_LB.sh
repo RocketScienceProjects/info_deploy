@@ -1,22 +1,16 @@
-#!/bin/ksh
-#####################################################
-# Description: Performs the below list of activities
-# 1. Create DG
-# 2. Delete DG
-# 3. Add objects to DG
-# 4. Deploy DG
-# 5. Clear DG
-# 6. Create Label
-# 7. Apply Label
-# 8. Delete Label
-#####################################################
+#!/bin/bash
 
-. /path/Informatica_Migration/Infa_environmental_variables.env
+source ./Infa_environmental_variables.env
 
-InfaMigPath=$HOME/Scripts/Informatica_Migration
+InfaMigPath=$(pwd)
+echo "$InfaMigPath"
 LogFileDir=$InfaMigPath/Logs
-date=`date +'%Y-%m-%d %H%M%S'`
-LogFileName=Infa_DG_LB_$date.log
+echo "$LogFileDir"
+current_date=`date +'%Y-%m-%d %H%M%S'`
+echo "$current_date"
+LogFileName=Infa_DG_LB_$current_date.log
+echo "$LogFileName"
+
 export USERNAME=$1
 export PASSWORD=$2
 export SRC_REP=$3
