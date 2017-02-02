@@ -1,7 +1,9 @@
 #!/bin/bash
 
+#Sourcing the env variable for the user executing the script
 source ./Infa_environmental_variables.env
 
+#Defining VARIABLES to be used in the script
 InfaMigPath=$(pwd)
 echo "$InfaMigPath"
 LogFileDir=$InfaMigPath/Logs
@@ -11,6 +13,7 @@ echo "$current_date"
 LogFileName=Infa_DG_LB_$current_date.log
 echo "$LogFileName"
 
+#Setting the parameters passed in the script as env variables for the session 
 export USERNAME=$1
 export PASSWORD=$2
 export SRC_REP=$3
