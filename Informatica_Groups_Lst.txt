@@ -1,0 +1,3 @@
+Informatica_DEV_RS_BATCH,rwx
+Informatica_DEV_RS_MIGR,rwx
+Informatica_DEV_RS_DEVL,rwx

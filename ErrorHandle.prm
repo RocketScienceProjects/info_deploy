@@ -1,0 +1,7 @@
+[Global]
+$DBConnection_<error table connection name>=<error table connection name> (e.g. $DBConnection_DW_ERROR = DW_ERROR)
+- This is the connection pointing to error tables
+$PMSuccessEmailUser=<semi-colon delimited email listing> (e.g. john.smith@adp.com)
+Add one parameter to the workflow section for each workflow
+[<folder name>.WF:<workflow name>]
+$Param_ErrorFile=/infa_shared/TgtFiles/<workflow name>_error.txt
