@@ -22,6 +22,7 @@ export ACTION=$6
 cat /dev/null>$LogFileDir/$LogFileName
 
 ##### Connecting to the Source repository
+##### $DOMAIN defined in the env file
 $PMSERVERDIR/pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
