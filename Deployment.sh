@@ -22,6 +22,7 @@ export NAME=$5
 export ACTION=$6
 
 ##### Nullifying the log file
+touch $LogFileDir/$LogFileName
 cat /dev/null>$LogFileDir/$LogFileName
 
 ##### Connecting to the Source repository
