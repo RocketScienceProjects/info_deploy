@@ -22,6 +22,7 @@ export NAME=$5
 export ACTION=$6
 
 ##### Nullifying the log file
+mkdir $LogFileDir
 touch $LogFileDir/$LogFileName
 cat /dev/null>$LogFileDir/$LogFileName
 
