@@ -37,22 +37,32 @@ echo "RETURN_CODE: "$RETURN_CODE
 ##### Delete the existing deployment group
 if [ "$ACTION" == DG_DELETE ]
 then
-echo "Deleting the Deployment Group "$NAME
-pmrep deletedeploymentgroup -p $NAME -f
+
+while read EachLine
+	do
+		var=$(echo $EachLine| awk -F"," '{print $1}')
+		set -- $var
+		DG_NAME=$1
+
+
+echo "Deleting the Deployment Group "$DG_NAME
+pmrep deletedeploymentgroup -p $DG_NAME -f
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE
 
 	if [ $RETURN_CODE == 0 ]
 	then
-	echo "Deleted the Deployment Group "$NAME
+	echo "Deleted the Deployment Group "$DG_NAME
 	echo
-	echo "Deleted the Deployment Group "$NAME
+	echo "Deleted the Deployment Group "$DG_NAME
 	else
-	echo "Deployment Group "$NAME " is not present / invalid credentials."
-	echo "Deployment Group "$NAME " is not present."
+	echo "Deployment Group "$DG_NAME " is not present / invalid credentials."
+	echo "Deployment Group "$DG_NAME " is not present."
 	echo
 	exit 1
 	fi
+
+done < $InfaMigPath/deploymentGroupsList.txt
 
 fi
 
@@ -72,7 +82,6 @@ echo "RETURN_CODE: "$RETURN_CODE
 	else
 	echo "Deployment Group "$NAME " is not present / invalid credentials."
 	echo "Deployment Group "$NAME " is not present."
-	echo "Check the log file "$LogFileDir/$LogFileName
 	echo
 	exit 1
 	fi
