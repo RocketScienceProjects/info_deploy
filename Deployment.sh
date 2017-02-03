@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Sourcing the env variable for the user executing the script
-source ./Infa_environmental_variables.env
+source ./environmental_variables.env
 
 #Defining VARIABLES to be used in the script
 InfaMigPath=$(pwd)
@@ -13,7 +13,7 @@ echo "$current_date"
 LogFileName=Infa_DG_LB_$current_date.log
 echo "$LogFileName"
 
-#Setting the parameters passed in the script as env variables for the session 
+#Setting the parameters passed in the script as env variables for the session
 export USERNAME=$1
 export PASSWORD=$2
 export SRC_REP=$3
@@ -114,7 +114,7 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 ##### Assigning permission to different informatica groups.
 echo Assigning permission for $NAME to below list of informatica groups if available.
 
-LST_CNT=`wc -l $InfaMigPath/Informatica_Groups_Lst.txt|awk '{print $1}'`
+LST_CNT=`wc -l $InfaMigPath/Groups_Lst.txt|awk '{print $1}'`
 
 if [ $LST_CNT == 0 ]
 then
@@ -144,7 +144,7 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 	exit 1
 	fi
 
-done < $InfaMigPath/Informatica_Groups_Lst.txt
+done < $InfaMigPath/Groups_Lst.txt
 fi
 
 fi
@@ -250,7 +250,7 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 ##### Assigning permission to different informatica groups.
 echo Assigning permission for $NAME to below list of informatica groups.
 
-LST_CNT=`wc -l $InfaMigPath/Informatica_Groups_Lst.txt|awk '{print $1}'`
+LST_CNT=`wc -l $InfaMigPath/Groups_Lst.txt|awk '{print $1}'`
 
 if [ $LST_CNT == 0 ]
 then
@@ -280,7 +280,7 @@ echo "RETURN_CODE: "$RETURN_CODE  >>$LogFileDir/$LogFileName
 	exit 1
 	fi
 
-done < $InfaMigPath/Informatica_Groups_Lst.txt
+done < $InfaMigPath/Groups_Lst.txt
 
 fi
 
