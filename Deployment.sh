@@ -4,7 +4,7 @@
 source ./environmental_variables.env
 
 #Defining VARIABLES to be used in the script
-# InfaMigPath=$(pwd)
+InfaMigPath=$(pwd)
 # echo "$InfaMigPath"
 # LogFileDir=$InfaMigPath/Logs
 # echo "$LogFileDir"
