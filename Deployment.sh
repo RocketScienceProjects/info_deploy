@@ -28,7 +28,7 @@ touch $LogFileDir/$LogFileName
 
 ##### Connecting to the Source repository
 ##### $DOMAIN defined in the env file
-pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN #2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE  #>>$LogFileDir/$LogFileName
 
