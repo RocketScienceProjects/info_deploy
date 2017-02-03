@@ -24,7 +24,7 @@ export ACTION=$6
 ##### Nullifying the log file
 mkdir $LogFileDir
 touch $LogFileDir/$LogFileName
-cat /dev/null>$LogFileDir/$LogFileName
+#cat /dev/null>$LogFileDir/$LogFileName
 
 ##### Connecting to the Source repository
 ##### $DOMAIN defined in the env file
