@@ -195,7 +195,7 @@ then
 
 echo "Starting Deployment of "$NAME" to target Repository "$TGT_REP.
 date
-pmrep deploydeploymentgroup -p $NAME -c $InfaMigPath/DeployOptions.xml -r $TGT_REP -n $USERNAME -s $USERSECURITYDOMAIN -x $PASSWORD -l $LogFileDir/$NAME.log 2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep deploydeploymentgroup -p $NAME -c $InfaMigPath/DeployOptions.xml -r $TGT_REP -n $USERNAME -s $USERSECURITYDOMAIN -x $PASSWORD
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE
 	if [ $RETURN_CODE == 0 ]
