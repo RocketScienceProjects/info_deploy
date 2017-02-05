@@ -19,7 +19,7 @@ export ACTION=$6
 
 ##### Connecting to the Source repository, $DOMAIN defined in the env file
 echo "Connecting to the Repository "$SRC_REP
-pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN #2>>$LogFileDir/$LogFileName 1>>$LogFileDir/$LogFileName
+pmrep connect -r $SRC_REP -d $DOMAIN -n $USERNAME -x $PASSWORD -s $USERSECURITYDOMAIN
 RETURN_CODE=$?
 echo "RETURN_CODE: "$RETURN_CODE
 
@@ -34,7 +34,9 @@ echo "RETURN_CODE: "$RETURN_CODE
 	exit 1
 	fi
 
-##### Delete the existing deployment group
+
+##### Delete the existing deployment group,
+##### the list should be provided via the file deploymentGroupsList.txt
 if [ "$ACTION" == DG_DELETE ]
 then
 
