@@ -1,7 +1,9 @@
+# info_deploy
+
 Repository host all the required shell scripts and configurations needed to perform a deployment
 orchestration on an Informatica Powercenter.
 
-To use it via jenkins, there are 2 ways:
+# To use it via jenkins, there are 2 ways:
 1. install the Command line utility on the jenkins agents
 2. Perform remote invokation of the scripts from the Informatica server
 
@@ -9,7 +11,7 @@ I am using the option #1.
 
 The script 'Deployment.sh' is a simple shell script that invokes a series of commands based on the Action selected. Before any action is executed the 'pmrep connect' command is invoked. This is just the way how the pmrep/Informatica Powercenter works.
 
-Some available Actions in the 'Deployment.sh' script:
+# Some available Actions in the 'Deployment.sh' script:
 
 DG_DELETE  -- Delete deployment group
 DG_CLEAR   -- Clear content of a deployment group
@@ -21,7 +23,7 @@ LB_CREATE  -- Create a Label
 LB_ADD     -- Add a Label
 LB_DELETE  -- Delete a Label
 
-Each file plays an important part:
+# Each file plays an important part:
 Deployment.sh  --> The main shell script
 deploymentGroupsList.txt  --> The file that should be entered with the list of DG names to be deleted at once
 DeployOptions.xml  --> This is more or less the control file for the deployment process
