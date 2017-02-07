@@ -9,7 +9,7 @@ orchestration on an Informatica Powercenter.
 
 The script 'Deployment.sh' is a simple shell script that invokes a series of commands based on the Action selected. Before any action is executed the 'pmrep connect' command is invoked. This is just the way how the pmrep/Informatica Powercenter works.
 
-# Some available Actions in the 'Deployment.sh' script:
+# Available actions in the 'Deployment.sh' script:
 
 - DG_DELETE  -- Delete deployment group
 - DG_CLEAR   -- Clear content of a deployment group
