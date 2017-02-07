@@ -20,3 +20,11 @@ DG_DEPLOY  -- Deploy a deployment group
 LB_CREATE  -- Create a Label
 LB_ADD     -- Add a Label
 LB_DELETE  -- Delete a Label
+
+Each file plays an important part:
+Deployment.sh  --> The main shell script
+deploymentGroupsList.txt  --> The file that should be entered with the list of DG names to be deleted at once
+DeployOptions.xml  --> This is more or less the control file for the deployment process
+environmental_variables.env  --> The file which should have all the valuable information for the pmrep command to be executed successfully by the user used to invoke this scripts
+Groups_Lst.txt   --> This file will have the list of Groups and the permissions that we will be set to the DG's
+Mig_Inventory_list.csv  --> This CSV file will have the objects that will be deployed
